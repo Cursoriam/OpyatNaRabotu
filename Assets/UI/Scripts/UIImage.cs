@@ -1,35 +1,36 @@
+using System;
 using UnityEngine;
 
-public class UIImage
+public class UIImage : UINode
 {
+
     #region attributes
 
-    protected GameObject Image;
+    protected SpriteRenderer SpriteRenderer;
 
     #endregion
 
-    public virtual GameObject Create(string name, string path, Rect rect, Transform parent, int z)
+    #region factory
+
+    public static UIImage Create(UINode parent, string name, Rect rect, string spritePath)
     {
-        //TODO: to common
-        GameObject go = new GameObject();
-        RectTransform rf = go.AddComponent<RectTransform>();
-        go.name = name;
-        
-        if (go == null)
-            return null;
-        
-        Image = go;
-
-        if (parent != null && parent.GetComponent<RectTransform>() != null)
-            Image.transform.SetParent(parent);
-
-        rf.sizeDelta = Vector2.one;
-        rf.localScale = rect.size;
-        rf.localPosition = new Vector3(rf.localPosition.x, rf.localPosition.y, z);
-        
-        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = ResourceLoader.Load<Sprite>(path);
-        
-        return Image;
+        UIImage control = UITools.CreateObject<UIImage>(parent.Transform, name);
+        control.Create(rect, spritePath);
+        return control;
     }
+
+    #endregion
+
+    #region service methods
+
+    protected virtual void Create(Rect rect, string spritePath)
+    {
+        base.Create(rect);
+        SpriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        SpriteRenderer.sprite = ResourceManager.LoadAsset<Sprite>(spritePath);
+        
+    }
+
+    #endregion
+    
 }

@@ -21,26 +21,21 @@ public class UIManager : MonoBehaviour
 
     #region properties
 
-    public static Vector2 ScreenBound { get; set; }
+    
 
     #endregion
+    
+    #region public methods
 
-    // Start is called before the first frame update
-    void Start()
+    public static void InstantiateGameOverWindow()
     {
-        ScreenBound = mainCameraManager.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
-            mainCameraManager.transform.position.z));
-
-        int z = 0;
-        UIBlackSplash bs = new UIBlackSplash();
-        GameObject blackSplash = bs.Create("back_splash", "UI/base_square", Rect.zero, null, 0);
-
-        UIImage imageCreator = new UIImage();
-        GameObject bg = imageCreator.Create("background",
-            "UI/background",
-            new Rect(10, 10, 0.1f, 0.2f),
-            blackSplash.transform, -1);
-
-        imageCreator.Create("button", "UI/button", new Rect(90, 80, 1, 0.5f), bg.transform, -2);
+        UINode node = UINode.Create(null, "node", new Rect(-GameManager.ScreenBound.x, -GameManager.ScreenBound.y, GameManager.ScreenBound.x * 2, GameManager.ScreenBound.y * 2), true);
+        UIBlackSplash blackSplash = UIBlackSplash.Create(node,
+            "blackSplash", 
+            new Rect(node.Transform.rect.x, node.Transform.rect.y, node.Transform.rect.width, node.Transform.rect.height));
+        UIImage image = UIImage.Create(blackSplash, "square", new Rect(-GameManager.ScreenBound.x + 3f, -GameManager.ScreenBound.y + 3f, 7, 3.5f),
+            "UI/background");
     }
+
+    #endregion
 }

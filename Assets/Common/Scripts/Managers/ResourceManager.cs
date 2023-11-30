@@ -2,12 +2,12 @@ using UnityEngine;
 
 public static class ResourceManager
 {
-    public static GameObject LoadAsset(string path)
+    public static T LoadAsset<T>(string path) where T : Object
     {
-        GameObject go = Resources.Load<GameObject>(path);
-        if (go == null)
+        T asset = Resources.Load<T>(path);
+        if (asset == null)
             return null;
 
-        return go;
+        return asset;
     }
 }

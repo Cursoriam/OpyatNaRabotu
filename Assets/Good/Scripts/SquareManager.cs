@@ -21,7 +21,7 @@ public class SquareManager : MonoBehaviour
 
         GameObject square = Instantiate(_product);
         int mockY = -4;
-        square.transform.position = new Vector3(-UIManager.ScreenBound.x - 2, mockY, -1);
+        square.transform.position = new Vector3(GameManager.ScreenBound.x - 2, mockY, -1);
         _products.Add(square);
     }
 
@@ -37,7 +37,7 @@ public class SquareManager : MonoBehaviour
             
             GameObject square = Instantiate(_product);
             int mockY = -4;
-            square.transform.position = new Vector3(-UIManager.ScreenBound.x - 2, mockY, -1);
+            square.transform.position = new Vector3(GameManager.ScreenBound.x - 2, mockY, -1);
             _products.Add(square);
         }
         
@@ -50,7 +50,7 @@ public class SquareManager : MonoBehaviour
         //Удоление квадратов
         GameObject productToDelete = _products.FirstOrDefault();
         
-        if (productToDelete != null && productToDelete.transform.position.x > UIManager.ScreenBound.x)
+        if (productToDelete != null && productToDelete.transform.position.x > GameManager.ScreenBound.x)
         {
             _products.RemoveAt(0);
             Destroy(productToDelete);
